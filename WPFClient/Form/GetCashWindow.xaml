@@ -1,0 +1,40 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFClient.Form"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="WPFClient.Form.GetCashWindow"
+        mc:Ignorable="d"
+        Title="提现"  WindowStyle="none" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="420" Height="270" Loaded="Window_Loaded">
+    <DockPanel >
+        <DockPanel DockPanel.Dock="Top" MouseDown="DockPanel_MouseDown" VerticalAlignment="Top" Height="40" HorizontalAlignment="Stretch" Background="{StaticResource themeBrush}">
+            <TextBlock  FontSize="18" DockPanel.Dock="Right"  Foreground="White" Margin="0,8,5,0" VerticalAlignment="Center" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" HorizontalAlignment="Center">✖</TextBlock>
+            <TextBlock  FontSize="18"  Foreground="White"  Margin="40,4,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">申请提现</TextBlock>
+        </DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="40,15,40,5">
+                <TextBlock FontSize="16" Foreground="Gray" Text="   阿思币总额："></TextBlock>
+                <TextBlock Name="AskMoney" FontSize="16" Foreground="Black" Text="" Margin="10,0,0,0">0</TextBlock>
+                <TextBlock FontSize="16" Foreground="Black" Margin="10,0,0,0" Text="枚"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,5">
+                <TextBlock FontSize="16" Foreground="Gray" Text="   可提现金额："></TextBlock>
+                <TextBlock Name="GetMoney" FontSize="16" Foreground="Black" Text="" Margin="10,0,0,0">0</TextBlock>
+                <TextBlock FontSize="16" Foreground="Black" Text="元" Margin="10,0,0,0"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,5">
+                <TextBlock FontSize="16" Foreground="Gray" Text="绑定的银行卡："></TextBlock>
+                <TextBlock Name="BankName" FontSize="16" Foreground="Gray" Text="" Margin="10,0,0,0"></TextBlock>
+                <TextBlock Name="BankNo" FontSize="16" Foreground="Gray" Text="" Margin="10,0,0,0"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,5">
+                <TextBlock FontSize="16" Foreground="Gray" Text="申请提现金额："></TextBlock>
+                <TextBox Name="MoneyTxt" FontSize="16" Foreground="Red" Width="100" Text="" Margin="10,0,0,0" GotFocus="MoneyTxt_GotFocus"></TextBox>
+                <TextBlock FontSize="16" Foreground="Black" Text="元" Margin="10,0,0,0"></TextBlock>
+            </StackPanel>
+            <Button Name="OkButton" Content="结算" Margin="0,30,0,0" BorderBrush="Transparent"  Style="{StaticResource BeginButtonStyle}" BorderThickness="0" 
+                        HorizontalAlignment="Center" Foreground="White"  Width="91" Click="OkButton_Click"/>
+        </StackPanel>
+    </DockPanel>
+</Window>

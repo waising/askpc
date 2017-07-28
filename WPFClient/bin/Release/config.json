@@ -1,0 +1,12 @@
+﻿{
+  "configs": {
+    "index": 0,
+    "list": [
+      {
+        "server": "",
+        "appkey": "a485afdeeccf7f41b0e31dd4799fd85d",
+        "roomlistserver": "https://app.netease.im/api/chatroom/homeList"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <PublishUrlHistory>ftp://182.92.200.135/|d:\\askclient\|d:\\aaa\|d:\askclient\|ftp://182.92.200.135/../../alidata/server/tomcat/tomcat-7.0.63/webapps/apps/</PublishUrlHistory>
+    <InstallUrlHistory>http://teacherapp.91asking.com/apps/|http://192.168.9.59:8080/ask/|http://teacherapp.91asking.com/apps/publish.htm/|http://www.91asking.com/apps/|http://localhost:8080/ask/</InstallUrlHistory>
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>zh-CN</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>
+    </ReferencePath>
+  </PropertyGroup>
+</Project>

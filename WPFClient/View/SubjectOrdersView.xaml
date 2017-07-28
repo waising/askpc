@@ -1,0 +1,78 @@
+﻿<Page x:Class="WPFClient.View.SubjectOrdersView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFClient.View"
+      xmlns:cv="clr-namespace:WPFClient.Common.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="SubjectOrdersView">
+
+    <Page.Resources>
+        <Style x:Key="CenterAlignmentStyle" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <cv:DateConverter x:Key="dateConverter"/>
+        <cv:GradeConverter x:Key="gradeConverter"/>
+       
+    </Page.Resources>
+
+    <Grid>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <DataGrid Name="OrdersDG" AutoGenerateColumns="False" BorderBrush="#FF587983" BorderThickness="1,0,1,1" AlternationCount="2" IsReadOnly="True"  ItemsSource="{Binding SubjectOrders}" 
+                      HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" SelectionMode="Single"
+				ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+				GridLinesVisibility="None" ColumnHeaderHeight="50" RowHeaderWidth="0" Background="White" MinColumnWidth="50">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="题目" Width="400">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Image VerticalAlignment="Center" Width="350" Source="{Binding Subject.Images[0].Url}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="年级" ElementStyle="{Binding CenterAlignmentStyle}" Binding="{Binding Subject.Grade,Converter={StaticResource gradeConverter}}" Width="150"/>
+
+                    <DataGridTemplateColumn Header="悬赏" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Text="{Binding Bill.Wanted}" Foreground="Orange"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="学生昵称" ElementStyle="{Binding CenterAlignmentStyle}"  Binding="{Binding Student.Name}" Width="150"/>
+                    <DataGridTextColumn Header="提问时间" ElementStyle="{Binding CenterAlignmentStyle}"  Binding="{Binding AskTime.UploadTime, Converter={StaticResource dateConverter}}" Width="150"/>
+
+                    <!--操作-->
+                    <DataGridTemplateColumn Header="操作" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="xx" Content="查看" BorderBrush="Transparent" BorderThickness="0"
+                                            Command="{Binding DataContext.DetailCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Page}}" 
+                                            CommandParameter="{Binding Path=SelectedItem ,ElementName=OrdersDG }"
+                                            Style="{DynamicResource DetailButtonStyle}" VerticalContentAlignment="Center" Foreground="White">
+                                    </Button>
+                                    <Button Content="接单" BorderBrush="Transparent" BorderThickness="0" 
+                                            Command="{Binding DataContext.CommitCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Page}}"  
+                                            CommandParameter="{Binding Path = SelectedItem ,ElementName=OrdersDG }"
+                                            Style="{DynamicResource CommitButtonStyle}" VerticalContentAlignment="Center" Foreground="White">
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,280 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFClient.Form"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="WPFClient.Form.InfoWindow"
+        xmlns:i ="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        xmlns:app="clr-namespace:WPFClient.Controller" 
+        xmlns:cv="clr-namespace:WPFClient.Common.Converters"
+        Title="教师中心" WindowStyle="None"  Icon="../Resources/Image/login/LOGO.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" 
+        Loaded="Window_Loaded" WindowState="Normal" d:DesignHeight="800.25" Width="1115" ShowInTaskbar="False" 
+        SnapsToDevicePixels="True">
+
+    <Window.Resources>
+        <cv:FullDateConverter x:Key="fullDateConverter"/>
+        <cv:SeDateConverter x:Key="seDateConverter"/>
+        <cv:VisiConverter x:Key="visiConverter"/>
+        <cv:HideConverter x:Key="hideConverter"/> 
+        <cv:BankStateConverter x:Key="bankStateConverter"/>
+        <cv:MoneyConverter x:Key="moneyConverter"/>
+    </Window.Resources>
+
+    <!-- 数据显示区域 -->
+    <Border CornerRadius="0,0,10,10" Background="Transparent" BorderBrush="{StaticResource themeBrush}" BorderThickness="1" Margin="0">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="8" Direction="-90" RenderingBias="Quality" ShadowDepth="1" Color="White"/>
+        </Border.Effect>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="0,0,0,-1">
+
+            <DockPanel Name="TopPanel" MouseLeftButtonDown="TopPanel_MouseLeftButtonDown" Background="{StaticResource themeBrush}" LastChildFill="True" DockPanel.Dock="Top" Height="55">
+                <TextBlock></TextBlock>
+                <Image Width="30" Height="30" DockPanel.Dock="Right" Margin="15,0,25,0" Source="/WPFClient;component/Resources/Image/Info/home.png" MouseLeftButtonDown="btnClose_MouseLeftButtonUp"/>
+                <Image Width="30" Height="30" DockPanel.Dock="Right" Source="/WPFClient;component/Resources/Image/Info/nani.png" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <TextBlock DockPanel.Dock="Right" Margin="20,0,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="25" VerticalAlignment="Center">教师中心</TextBlock>
+
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="28,10,28,0">
+                <DockPanel DockPanel.Dock="Top" Height="140" >
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="20">
+                        <Ellipse  Height="80" Width="80" VerticalAlignment="Top" >
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Teacher.AskInfo.Avatar}"></ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel Orientation="Vertical" Margin="40,0,0,0" Width="311">
+                            <TextBlock FontSize="20" Text="{Binding Teacher.Info.FullName}"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="学校:" Foreground="Gray" Width="30"></TextBlock>
+                                <TextBlock Text="{Binding Path = Teacher.Info.School}" Width="120" TextAlignment="Left" Margin="15,0,0,0"></TextBlock>
+                                <TextBlock Text="ID:" TextAlignment="Right" Foreground="Gray" Width="30"></TextBlock>
+                                <TextBlock Text="{Binding Teacher.Id}" Width="120" TextAlignment="Left" Margin="15,0,0,0"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="等级:" Foreground="Gray" Width="30"></TextBlock>
+                                <TextBlock Text="{Binding Teacher.AskInfo.Level}" Width="120" TextAlignment="Left" Margin="15,0,0,0"></TextBlock>
+                                <TextBlock Text="科目:" TextAlignment="Right" Foreground="Gray" Width="30"></TextBlock>
+                                <TextBlock Text="{Binding Teacher.AskInfo.Subject}" Width="120" TextAlignment="Left" Margin="15,0,0,0"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <TextBlock Background="Gray" Width="0.3" Margin="30"></TextBlock>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="20">
+                        <DockPanel Margin="0,0,50,0">
+                            <TextBlock DockPanel.Dock="Left" FontSize="20" Foreground="Orange">阿思币：</TextBlock>
+                            <TextBlock FontSize="20" DockPanel.Dock="Left" Width="100" Foreground="Orange" Text="{Binding Teacher.AskInfo.Askcoin}"></TextBlock>
+
+                            <TextBlock DockPanel.Dock="Right" FontSize="20" Foreground="{StaticResource themeBrush}" Width="28">次</TextBlock>
+                            <TextBlock DockPanel.Dock="Right" FontSize="20" Width="94" TextAlignment="Center" Text="{Binding Teacher.AskInfo.AnswerTimes}" Foreground="{StaticResource themeBrush}"></TextBlock>
+                            <TextBlock DockPanel.Dock="Right" FontSize="20" TextAlignment="Right" Foreground="{StaticResource themeBrush}" Width="118">已回答：</TextBlock>
+
+                        </DockPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="经验值:" Foreground="Gray" Width="50" VerticalAlignment="Center"></TextBlock>
+                            <Grid HorizontalAlignment="Left" MinHeight="20">
+                                <telerik:RadProgressBar x:Name="barEx" Height="18" Value="{Binding Exprience}" Margin="5,0,0,0" Maximum="100" RenderTransformOrigin="0.5,0.5" Width="360">
+                                    <telerik:RadProgressBar.Foreground>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform Angle="-86" CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#FF95F061" Offset="1"/>
+                                            <GradientStop Color="#FFFFE437"/>
+                                        </LinearGradientBrush>
+                                    </telerik:RadProgressBar.Foreground>
+                                    <telerik:StyleManager.Theme>
+                                        <telerik:SummerTheme/>
+                                    </telerik:StyleManager.Theme>
+                                </telerik:RadProgressBar>
+                                
+                            </Grid>
+                            <TextBlock Name="expTxt" Text="{Binding Teacher.AskInfo.Exprience}" Margin="15,0,0,0" VerticalAlignment="Center">/</TextBlock>
+                            <TextBlock Name="expMaxTxt" Text="{Binding Teacher.AskInfo.ExprienceMax}" Margin="0" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="好评率:" Foreground="Gray" Width="50" VerticalAlignment="Center"></TextBlock>
+                            <Grid Height="25">
+                                <telerik:RadProgressBar x:Name="barGood" Height="18" Maximum="100" Value="{Binding Star}" Margin="5,0,0,0" RenderTransformOrigin="0.5,0.5" Width="360">
+                                    <telerik:RadProgressBar.Foreground>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform Angle="-90" CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#FF2482E0" Offset="1"/>
+                                            <GradientStop Color="#FF47F3D4" Offset="0.007"/>
+                                        </LinearGradientBrush>
+                                    </telerik:RadProgressBar.Foreground>
+                                    <telerik:StyleManager.Theme>
+                                        <telerik:SummerTheme/>
+                                    </telerik:StyleManager.Theme>
+                                </telerik:RadProgressBar>
+                            </Grid>
+                            <TextBlock Name="starTxt" Text="{Binding Star}" Margin="15,0,0,0" VerticalAlignment="Center">%</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+
+                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Margin="0,0,0,5">
+                    <DockPanel LastChildFill="False" HorizontalAlignment="Stretch">
+                        <RadioButton GroupName="GridTypeRadio" Name="OrderRb" Checked="OrderRb_Checked" DockPanel.Dock="Left" Height="40" IsChecked="True" Foreground="Gray" BorderBrush="Transparent" BorderThickness="0" Width="90" FontSize="18" Background="White" Style="{StaticResource TypeRadioButton}" Content="辅导记录"/>
+                        <RadioButton GroupName="GridTypeRadio" Name="MoneyRb" Checked="MoneyRb_Checked" DockPanel.Dock="Left" Height="40" BorderBrush="Transparent" Foreground="Gray" BorderThickness="0" Width="90" Background="White" FontSize="18"  Style="{StaticResource TypeRadioButton}" Content="提现记录"/>
+                        <RadioButton GroupName="GridTypeRadio" Name="MessageRb" Checked="MessageRb_Checked" DockPanel.Dock="Left" Height="40" BorderBrush="Transparent" Foreground="Gray" BorderThickness="0" Width="90" Background="White"  FontSize="18" Style="{StaticResource TypeRadioButton}" Content="消息记录"/>
+
+                        <Button Name="MoneyBtn" DockPanel.Dock="Right" Visibility="Hidden" Foreground="White"  Style="{StaticResource MoneyButtonStyle}" Click="MoneyBtn_Click">申请提现</Button>
+                        <TextBlock Name="Tel" Visibility="Collapsed" DockPanel.Dock="Right" Text="400-918-1915" Foreground="Gray" FontSize="16" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                        <Image Name="TelIco" Visibility="Collapsed" DockPanel.Dock="Right" Source="/WPFClient;component/Resources/Image/Info/tel.png" Height="20" Width="20" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <TextBlock Background="Gray" Height="0.3" HorizontalAlignment="Stretch"></TextBlock>
+                    <!--辅导记录-->
+                    <DockPanel Name="OrdersPanel" LastChildFill="True">
+                        <DataGrid Name="OrdersDG" DockPanel.Dock="Top" AutoGenerateColumns="False" BorderBrush="#FF587983" BorderThickness="1,0,1,1" AlternationCount="2" IsReadOnly="True" 
+                          HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" SelectionMode="Single" ItemsSource="{Binding TeachRecords}"
+				    ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,10,0,0"
+				    GridLinesVisibility="None" ColumnHeaderHeight="50" RowHeaderWidth="0" Background="White" MinColumnWidth="50">
+
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="答疑视频" Width="80" Visibility="Collapsed">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="10">
+                                                <TextBlock Foreground="{StaticResource themeBrush}">查看视频</TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="学生昵称" Width="160" Binding="{Binding Student.Name}"/>
+
+                                <DataGridTextColumn Header="开始答疑时间" Width="130" Binding="{Binding AskTime.UploadTime, Converter={StaticResource fullDateConverter}}"/>
+
+                                <DataGridTextColumn Header="答疑时长" Width="150" Binding="{Binding AskTime.HoldingSeconds, Converter={StaticResource seDateConverter}}"/>
+                                <DataGridTextColumn Header="收益" Width="150" Binding="{Binding Bill.Price}"/>
+                                <DataGridTextColumn Header="悬赏" Width="50"  Binding="{Binding Bill.Wanted}"/>
+                                <DataGridTextColumn Header="答谢" Width="50"  Binding="{Binding Evaluation.Reward}"/>
+                                <DataGridTextColumn Header="评分" Width="150" Binding="{Binding Evaluation.Star}"/>
+
+                                <DataGridTemplateColumn Header="学生评价" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="10">
+                                                <!--<TextBlock Text="暂无评论" Foreground="Gray" Visibility="{Binding Evaluation.Suggest,Converter={StaticResource hideConverter}}"></TextBlock>-->
+                                                <TextBlock Text="查看" Visibility="{Binding Evaluation.Suggest ,Converter={StaticResource visiConverter}}" Foreground="{StaticResource themeBrush}">
+                                                   <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.SeeCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}" 
+                                                                                CommandParameter="{Binding Path = SelectedItem ,ElementName=OrdersDG }" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="点评学生" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="10">
+                                                <TextBlock Text="点击评论" Foreground="Red" Visibility="{Binding Teacher.ToStudent, Converter={StaticResource hideConverter}}"  >
+                                                   <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.CommentCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                                                                               CommandParameter="{Binding Path = SelectedItem ,ElementName=OrdersDG }" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                </TextBlock>
+                                                <TextBlock Text="已评价" Foreground="{StaticResource themeBrush}" Visibility="{Binding Teacher.ToStudent, Converter={StaticResource visiConverter}}" >
+                                                   <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp" >
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.CommentCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                                                                               CommandParameter="{Binding Path = SelectedItem ,ElementName=OrdersDG }" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <app:Pager x:Name="OrderPager" Margin="0,15,0,10" DockPanel.Dock="Bottom" PageSize="5" EventPaging="OrderPager_EventPaging" />
+                    </DockPanel>
+                    <!--提现记录-->
+                    <DockPanel Name="MoneyPanel" LastChildFill="True" Visibility="Collapsed">
+                        <DataGrid Name="MoneyDG" DockPanel.Dock="Top" AutoGenerateColumns="False" Margin="0,10,0,0" BorderBrush="#FF587983" BorderThickness="1,0,1,1" AlternationCount="2" IsReadOnly="True" 
+                      HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" SelectionMode="Single" ItemsSource="{Binding Withdraws}"
+				ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+				GridLinesVisibility="None" ColumnHeaderHeight="50" RowHeaderWidth="0" Background="White" MinColumnWidth="50">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="申请时间" Width="130" Binding="{Binding ApplicationDate, Converter={StaticResource fullDateConverter}}"/>
+                                <DataGridTextColumn Header="提现金额" Width="100" Binding="{Binding Askcoin,Converter={StaticResource moneyConverter}}"/>
+                                <DataGridTextColumn Header="所在银行" Width="100" Binding="{Binding Company}"/>
+                                
+                                <DataGridTextColumn Header="银行账号" Width="180" Binding="{Binding Account}"/>
+                                <DataGridTextColumn Header="状态" Width="80" Binding="{Binding State, Converter={StaticResource bankStateConverter}}"/>
+                                <DataGridTextColumn Header="到账时间" Width="100" Binding="{Binding AccountingDate, Converter={StaticResource fullDateConverter}}"/>
+                                <DataGridTemplateColumn Header="操作人" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="10">
+                                                <TextBlock Text="{Binding Operator}"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Foreground="Red" DockPanel.Dock="Top" Margin="0,10,0,0" FontSize="12" Text="备注:每月提现申请一次，财务每月做一次审核和转账，时间一般在10-15号之间"></TextBlock>
+                        <app:Pager x:Name="MoneyPager" Margin="0,15,0,10" DockPanel.Dock="Bottom" PageSize="5" EventPaging="MoneyPager_EventPaging" />
+                    </DockPanel>
+
+
+                    <DockPanel Name="MessagePanel" LastChildFill="True" Visibility="Collapsed">
+                        <!--消息记录-->
+                        <DataGrid Name="MessageDG" DockPanel.Dock="Top" AutoGenerateColumns="False" Margin="0,10,0,0" BorderBrush="#FF587983" BorderThickness="1,0,1,1" AlternationCount="2" IsReadOnly="True" 
+                          HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" SelectionMode="Single" ItemsSource="{Binding Messagesss}"
+				    ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+				    GridLinesVisibility="None" ColumnHeaderHeight="50" RowHeaderWidth="0" Background="White" MinColumnWidth="50">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="消息内容" Width="500" Binding="{Binding Msg}"/>
+
+                                <DataGridTextColumn Header="时间" Width="100" Binding="{Binding Date, Converter={StaticResource fullDateConverter}}"/>
+                                <DataGridTemplateColumn Header="操作" Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="10">
+                                                <Button Name="xx" Content="删除" BorderBrush="Transparent" Foreground="Red" BorderThickness="0" Background="Transparent"
+                                                    Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}" 
+                                                    CommandParameter="{Binding Path=SelectedItem ,ElementName=MessageDG }"
+                                                     VerticalContentAlignment="Center">
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <app:Pager x:Name="MessagePager" Margin="0,15,0,10" DockPanel.Dock="Bottom" PageSize="5" EventPaging="MessagePager_EventPaging" />
+                    </DockPanel>
+                </StackPanel>
+            </DockPanel>
+
+        </StackPanel>
+    </Border>
+</Window>

@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFClient.Resources.Style">
+    
+    
+    <SolidColorBrush x:Key="themeBrush" Color="#58caff"/>
+    <SolidColorBrush x:Key="askMoneyBrush" Color="#ffab84"/>
+    
+    <ResourceDictionary.MergedDictionaries>
+        <!--主窗口-->
+        <ResourceDictionary Source=".\MainStyle.xaml" />
+        <!--教学窗口-->
+        <ResourceDictionary Source=".\DrawPanelStyle.xaml" />
+        <!--订单列表--> 
+        <ResourceDictionary Source=".\SubjectOrdersStyle.xaml" />
+
+        <!--结束教学-->
+        <ResourceDictionary Source=".\FinishTeachStyle.xaml" />
+        <!--教师中心-->
+        <ResourceDictionary Source=".\InfoStyle.xaml" />
+
+        <ResourceDictionary Source=".\DataGridStyle.xaml"/>
+        
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

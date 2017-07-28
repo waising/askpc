@@ -1,0 +1,56 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFClient.Form"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="WPFClient.Form.StudentCommentWindow"
+        mc:Ignorable="d"
+        Title="内容信息"  WindowStyle="none" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="420"  Loaded="Window_Loaded" Height="320">
+    <DockPanel >
+        <DockPanel DockPanel.Dock="Top" MouseDown="DockPanel_MouseDown" VerticalAlignment="Top" Height="40" HorizontalAlignment="Stretch" Background="{StaticResource themeBrush}">
+            <TextBlock  FontSize="18" DockPanel.Dock="Right"  Foreground="White" Margin="0,8,5,0" VerticalAlignment="Center" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" HorizontalAlignment="Center">✖</TextBlock>
+            <TextBlock  FontSize="18" Name="TitleTxt" Foreground="White"  Margin="40,4,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">点评学生</TextBlock>
+        </DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Height="256">
+            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                <StackPanel Margin="30,0,30,10" Orientation="Horizontal">
+                    <TextBlock Text="学生昵称:" FontSize="16" Foreground="Gray">
+                    </TextBlock>
+                    <TextBlock Name="StudentNameTxt" FontSize="16" Foreground="Gray"></TextBlock>
+                </StackPanel>
+                <TextBox
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                          Name="ToStudentText"
+                          TextWrapping="Wrap"
+                           MinLines="10"
+                          AcceptsReturn="True"
+                          MaxLines="15"
+                          VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="30,0,0,0" Height="151" GotFocus="ToStudentText_GotFocus" Width="360">
+                    <TextBox.Resources>
+                        <VisualBrush x:Key="HintText" TileMode="None" Opacity="0.8" Stretch="None" AlignmentX="Left" AlignmentY="Top">
+                            <VisualBrush.Visual>
+                                <TextBlock FontSize="14" Foreground="Gray" Text="输入评论"/>
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </TextBox.Resources>
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="{x:Null}">
+                                    <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                </Trigger>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <Button Name="OkButton" Content="确定" Margin="0,30,0,0" BorderBrush="Transparent"  Style="{StaticResource BeginButtonStyle}" BorderThickness="0" 
+                        HorizontalAlignment="Center" Foreground="White"  Width="91" Click="OkButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>

@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFClient.Resources.Style">
+    
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="#FF0FB3E8"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontSize" Value="18"/>
+
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="MaxHeight" Value="300"/>
+        <Style.Triggers>
+            <!--隔行换色-->
+            <Trigger Property="AlternationIndex" Value="0" >
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1" >
+                <Setter Property="Background" Value="#f2f2f2" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FF4BC7E2"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#FF469DC5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--单元格样式触发-->
+    <Style TargetType="DataGridCell">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Gray" >
+                            <ContentPresenter />
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--<Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            -->
+        <!--<Setter Property="Background" Value="Blue"/>-->
+        <!--<Setter Property="BorderThickness" Value="0"/>-->
+        <!--<Setter Property="Foreground" Value="Blue"/>-->
+        <!--
+                        </Trigger>
+                    </Style.Triggers>-->
+    </Style>
+
+</ResourceDictionary>

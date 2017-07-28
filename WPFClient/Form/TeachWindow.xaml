@@ -1,0 +1,135 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFClient.Form"
+        xmlns:Chromes="clr-namespace:Telerik.Windows.Controls.Chromes;assembly=Telerik.Windows.Controls" 
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WPFClient.Form.TeachWindow"
+        xmlns:wb="clr-namespace:WPFClient.Common"
+        xmlns:ca="clr-namespace:WPFClient.Common"
+        mc:Ignorable="d"
+        Title="1to1Teacher" WindowStyle="None" Margin="0,0,0,0" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized" d:DesignWidth="1280" d:DesignHeight="800" Loaded="Window_Loaded" Closed="Window_Closed" 
+        Icon="../Resources/Image/login/LOGO.ico">
+
+    <Window.Resources>
+        <System:Double x:Key="PenColorWidth">
+            23
+        </System:Double>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True" Height="60">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Name="SameSubButton" Content="匹配例题" BorderBrush="Transparent" BorderThickness="0"
+                                            Style="{StaticResource SameButtonStyle}" VerticalContentAlignment="Center" Foreground="White"/>
+            </StackPanel>
+
+
+            <StackPanel DockPanel.Dock="Right" Width="406" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,18">
+
+                <TextBlock Name="TeachState" Text="正在审题中。。。" FontSize="12" Foreground="Red" VerticalAlignment="Center" Width="150" TextAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0"/>
+                <TextBlock Name="TeachTime" Text="00:00" FontSize="20" Width="93" VerticalAlignment="Center" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Left" Margin="0,0,20,0"/>
+
+                <Button Content="取消答疑" Style="{StaticResource CancelButtonStyle}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" 
+                        HorizontalAlignment="Right" Foreground="Gray" Command="{Binding CancelCommand}"/>
+
+                <Button Name="FinishTeachButton" Content="结算" BorderBrush="Transparent"  Style="{StaticResource BeginButtonStyle}" BorderThickness="0" 
+                        HorizontalAlignment="Right" Foreground="White" Visibility="Collapsed" Width="91" Command="{Binding FinishCommand}"/>
+
+                <Button Name="StartConnTeachButton" Content="开始答疑" Visibility="Collapsed" BorderBrush="Transparent"  Style="{StaticResource BeginButtonStyle}" BorderThickness="0" 
+                        HorizontalAlignment="Right" Foreground="White" Width="91" Command="{Binding StartCommand}" CommandParameter="0" />
+
+                <Button Name="StartTeachButton" Content="开始答疑" BorderBrush="Transparent"  Style="{StaticResource BeginButtonStyle}" BorderThickness="0" 
+                        HorizontalAlignment="Right" Foreground="White" Width="91" Command="{Binding StartCommand}" CommandParameter="1" />
+
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+                <!--清除-->
+                <Button BorderBrush="Transparent" Width="25" Height="20" IsEnabled="{Binding IsStart}" Style="{StaticResource ClearButtonStyle}" 
+                        BorderThickness="0" VerticalContentAlignment="Center" VerticalAlignment="Center"  Command="{Binding PenStyleCommand}" CommandParameter="2"/>
+
+                <Button BorderBrush="Transparent" Width="25" Height="20" IsEnabled="{Binding IsStart}" Style="{StaticResource ReBackButtonStyle}" Margin="15,0,0,0"
+                        BorderThickness="0" VerticalContentAlignment="Center" VerticalAlignment="Center"  Command="{Binding PenStyleCommand}" CommandParameter="3"/>
+
+                <!--橡皮擦样式-->
+                <RadioButton GroupName="PenStyle" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" BorderThickness="2"  Width="25" Height="20"
+                              SnapsToDevicePixels="True" IsChecked="{Binding IsEraser}" BorderBrush="Black" Background="Black" Margin="15,0,0,0"
+                             Style="{StaticResource EraserRadioButton}" Command="{Binding PenStyleCommand}" CommandParameter="1"/>
+                <!--画笔样式-->
+                <RadioButton GroupName="PenStyle" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" BorderThickness="2"  Width="25" Height="20"
+                              SnapsToDevicePixels="True" IsChecked="{Binding IsPen}" BorderBrush="Black" Background="Black" Margin="15,0,0,0"
+                             Style="{StaticResource PenRadioButton}" Command="{Binding PenStyleCommand}" CommandParameter="0"/>
+
+
+                <!--画笔粗细-->
+                <RadioButton GroupName="PenSize" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" BorderThickness="1"  Width="14" Height="14"
+                              SnapsToDevicePixels="True" IsChecked="True" BorderBrush="Black" Background="Black" Margin="15,0,0,0"
+                             Style="{StaticResource PenSmallSizeRadioButton}" Command="{Binding PenSizeRdoCommand}" CommandParameter="2"/>
+
+                <RadioButton GroupName="PenSize" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" BorderThickness="1"  Width="20" Height="20" Margin="5,0,0,0"
+                              SnapsToDevicePixels="True" IsChecked="False" BorderBrush="Black" Background="Black"
+                             Style="{StaticResource PenMidSizeRadioButton}" Command="{Binding PenSizeRdoCommand}" CommandParameter="8"/>
+
+                <RadioButton GroupName="PenSize" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" BorderThickness="1"  Width="26" Height="26" Margin="5,0,0,0"
+                              SnapsToDevicePixels="True" IsChecked="False" BorderBrush="Black" Background="Black"
+                             Style="{StaticResource PenBigSizeRadioButton}" Command="{Binding PenSizeRdoCommand}" CommandParameter="16"/>
+
+                <!--画笔颜色-->
+                <RadioButton GroupName="PenColor" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" BorderThickness="1"  Width="{StaticResource PenColorWidth}" Height="{StaticResource PenColorWidth}"
+                              SnapsToDevicePixels="True" IsChecked="True" BorderBrush="Black" Background="Black" Margin="15,0,0,0"
+                             Style="{StaticResource PenColorRadioButton}" Command="{Binding PenColorRdoCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self},  Path=Background}"/>
+
+                <RadioButton GroupName="PenColor" VerticalAlignment="Center" IsEnabled="{Binding IsStart,Mode=TwoWay}" Width="{StaticResource PenColorWidth}" Height="{StaticResource PenColorWidth}"
+                              SnapsToDevicePixels="True" IsChecked="False" BorderBrush="Red" Background="Red"  Margin="5,0,0,0"
+                             Style="{StaticResource PenColorRadioButton}" Command="{Binding PenColorRdoCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self},  Path=Background}">
+                </RadioButton>
+                <RadioButton GroupName="PenColor" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" Width="{StaticResource PenColorWidth}" Height="{StaticResource PenColorWidth}"
+                              SnapsToDevicePixels="True" IsChecked="False" BorderBrush="Blue" Background="Blue" Margin="5,0,0,0"
+                             Style="{StaticResource PenColorRadioButton}" Command="{Binding PenColorRdoCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self},  Path=Background}">
+                </RadioButton>
+                <RadioButton GroupName="PenColor" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" Width="{StaticResource PenColorWidth}" Height="{StaticResource PenColorWidth}"
+                              SnapsToDevicePixels="True" IsChecked="False" BorderBrush="Green" Background="Green" Margin="5,0,0,0"
+                             Style="{StaticResource PenColorRadioButton}" Command="{Binding PenColorRdoCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self},  Path=Background}">
+                </RadioButton>
+                <RadioButton GroupName="PenColor" VerticalAlignment="Center" IsEnabled="{Binding IsStart}" Width="{StaticResource PenColorWidth}" Height="{StaticResource PenColorWidth}"
+                              SnapsToDevicePixels="True" IsChecked="False" BorderBrush="Yellow" Background="Yellow" Margin="5,0,0,0"
+                             Style="{StaticResource PenColorRadioButton}" Command="{Binding PenColorRdoCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self},  Path=Background}">
+                </RadioButton>
+            </StackPanel>
+        </DockPanel>
+
+        <TextBlock Background="Gray" DockPanel.Dock="Top" Height="0.5"></TextBlock>
+        <Grid Name="GridSubject" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                <StackPanel Name="xzImg" Visibility="Visible" Panel.ZIndex="999" HorizontalAlignment="Right" Width="30" Height="34" MouseLeftButtonDown="xzImg_MouseLeftButtonDown">
+                    <Image Source="/WPFClient;component/Resources/Image/Order/xz.png"></Image>
+                </StackPanel>
+                <Image Name="sImg" Source="{Binding SubjectOrder.Subject.Images[0].Url}" MaxHeight="500" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                <WebBrowser x:Name="WbBrowser" wb:WebBrowserHelper.BindableSource="{Binding SubjectURL}" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" MaxHeight="1040" />
+            </StackPanel>
+
+            <TextBlock Background="Gray" MaxHeight="1040" Width="0.5" Grid.Row="0" Grid.Column="1" ></TextBlock>
+            <ScrollViewer Name="ScrollDraw" PanningMode="Both" PanningDeceleration="1" Grid.Row="0" Padding="0,0,5,0" Grid.Column="2" Width="auto" Height="auto" IsEnabled="{Binding IsStart}"
+                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Template="{StaticResource DrawScrollViewerStyle}" ScrollChanged="ScrollDraw_ScrollChanged">
+                <InkCanvas x:Name="DrawCanvas" IsEnabled="{Binding IsStart}" Background="Transparent" StylusDown="DrawCanvas_StylusDown" 
+                       StylusUp="DrawCanvas_StylusUp" TouchDown="DrawCanvas_TouchDown" StylusMove="DrawCanvas_StylusMove" StrokeErasing="DrawCanvas_StrokeErasing" 
+                       StrokeCollected="DrawCanvas_StrokeCollected" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseMove="DrawCanvas_MouseMove" MouseLeftButtonUp="DrawCanvas_MouseLeftButtonUp" >
+                    <InkCanvas.DefaultDrawingAttributes>
+                        <DrawingAttributes Color="Black" Height="2" StylusTip="Ellipse" StylusTipTransform="Identity" Width="2" FitToCurve="True"/>
+                    </InkCanvas.DefaultDrawingAttributes>
+                </InkCanvas>
+            </ScrollViewer>
+        </Grid>
+
+    </DockPanel>
+</Window>
