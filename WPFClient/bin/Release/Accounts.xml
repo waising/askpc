@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<NIMAccounts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastIndex="0">
-  <List>
-    <Account>
-      <Name>12345678901</Name>
-      <Password>SXv7Ln4MxNo=</Password>
-    </Account>
-  </List>
-</NIMAccounts>
